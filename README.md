@@ -1,6 +1,6 @@
 ## CAPTCHA (image)
 
-Simple image CAPTCHA implementation in PHP.
+Simple CAPTCHA  implementation in PHP.
 
 ## About
 This is an experiment.
@@ -19,4 +19,6 @@ This is an experiment.
 ![](screenshot-1.png)
 
 ![](screenshot-2.png)
+
+![](screenshot-3.png)
 

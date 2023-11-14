@@ -1,7 +1,39 @@
 <?php
 require "helpers.php";
 session_start();
-$captcha = setCaptcha();
+deleteOldFlashData();
+trackFlashData();
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $captcha = setCaptcha();
+}
+else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    foreach ($_POST as $key => $value) {
+        if (is_string($value)) {
+            $value = trim($value);
+            if ($value === "") {
+                $value = null;
+            }
+            $_POST[$key] = $value;
+        }
+    }
+    $pageURL = "http://localhost/captcha/";
+    $errors = [];
+    $name = $_POST["name"] ?? null;
+    if (empty($name)) {
+        $errors[] = "Name field must not be empty.";
+    }
+    if (strlen($name) < 2 || strlen($name) > 10) {
+        $errors[] = "Name field length must be in the range of 2-10.";
+    }
+    if ($errors) {
+        saveFormData();
+        addNotifications($errors);
+        redirect($pageURL);
+    }
+    // process form data
+    addNotification("The form is submitted.");
+    redirect($pageURL);
+}
 ?>
 <!doctype html>
 <html>
@@ -15,6 +47,8 @@ $captcha = setCaptcha();
 
 <body class="bg-slate-50 p-4">
     
+    <?php printNotifications(getNotifications()) ?>
+    
     <form class="flex flex-col gap-2 w-fit" action="" method="post">
         
         <div class="flex gap-2">
@@ -23,6 +57,7 @@ $captcha = setCaptcha();
                 type="text"
                 class="px-2 py-1 border rounded bg-white w-full"
                 name="name"
+                value="<?= getOldFormValue("name") ?>"
                 />
         </div>
         

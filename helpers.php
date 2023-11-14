@@ -6,6 +6,103 @@ function print_r2($value) {
     echo "</pre>";
 }
 
+function redirect(string $url, $statusCode = 302) {
+    header('Location: ' . $url, true, $statusCode);
+    exit;
+}
+
+
+#region ==================== FLASH DATA
+
+define("FLASH_DATA_KEY", "__flashData");
+
+function ensureFlashDataContainer() {
+    if (!isset($_SESSION[FLASH_DATA_KEY])) {
+        $_SESSION[FLASH_DATA_KEY] = [
+            "new" => [],
+            "old" => [],
+        ];
+    }
+}
+
+function markFlashData(string $key) {
+    ensureFlashDataContainer();
+    $_SESSION[FLASH_DATA_KEY]["new"][] = $key;
+}
+
+function setFlashData(string $key, $value) {
+    $_SESSION[$key] = $value;
+    markFlashData($key);
+}
+
+function trackFlashData() {
+    if (isset($_SESSION[FLASH_DATA_KEY])) {
+        $_SESSION[FLASH_DATA_KEY]["old"] = $_SESSION[FLASH_DATA_KEY]["new"];
+        $_SESSION[FLASH_DATA_KEY]["new"] = [];
+    }
+}
+
+function deleteOldFlashData() {
+    if (isset($_SESSION[FLASH_DATA_KEY])) {
+        foreach ($_SESSION[FLASH_DATA_KEY]["old"] as $oldKey) {
+            unset($_SESSION[$oldKey]);
+        }
+        $_SESSION[FLASH_DATA_KEY]["old"] = [];
+    }
+}
+
+#endregion
+
+
+#region ==================== NOTIFICATIONS
+
+function getNotifications(string $sessionKey = "notifications") {
+    return $_SESSION[$sessionKey] ?? [];
+}
+
+function addNotification(string $text, string $sessionKey = "notifications") {
+    $notifications = getNotifications($sessionKey);
+    $notifications[] = $text;
+    setFlashData("notifications", $notifications);
+}
+
+function addNotifications(array $texts, string $sessionKey = "notifications") {
+    foreach ($texts as $text) {
+        addNotification($text, $sessionKey);
+    }
+}
+
+function buildNotification($text) {
+    return "<p class=\"px-2 py-1 bg-blue-100 text-blue-900 rounded\">{$text}</p>";
+}
+
+function printNotifications($notifications, $class = "") {
+    if (!empty($notifications)) {
+        echo "<div class=\"flex flex-col gap-2 w-fit mb-4 {$class}\">";
+        foreach ($notifications as $text) {
+            echo buildNotification($text);
+        }
+        echo "</div>";
+    }
+}
+
+#endregion
+
+
+#region ==================== FORM DATA
+
+define("FORM_DATA_KEY", "formData");
+
+function saveFormData() {
+    setFlashData(FORM_DATA_KEY, $_POST);
+}
+
+function getOldFormValue(string $name): string {
+    return $_SESSION[FORM_DATA_KEY][$name] ?? "";
+}
+
+#endregion
+
 
 #region ==================== STRING
 

@@ -199,5 +199,25 @@ function setCaptcha() {
     return $result;
 }
 
+function checkCaptcha() {
+    $sessionCaptcha = $_SESSION["captcha"] ?? null;
+    $formCaptcha    = $_POST["captcha"] ?? null;
+    $result = [
+        "match"   => true,
+        "errors"  => [],
+        "session" => $sessionCaptcha,
+        "form"    => $formCaptcha,
+    ];
+    if (!$formCaptcha) {
+        $result["match"] = false;
+        $result["errors"][] = "CAPTCHA is missing.";
+    }
+    if ($formCaptcha && $formCaptcha != $sessionCaptcha) {
+        $result["match"] = false;
+        $result["errors"][] = "CAPTCHA is wrong.";
+    }
+    return $result;
+}
+
 #endregion
 

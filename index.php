@@ -17,6 +17,7 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     $pageURL = "http://localhost/captcha/";
+    $captchaResult = checkCaptcha();
     $errors = [];
     $name = $_POST["name"] ?? null;
     if (empty($name)) {
@@ -24,6 +25,9 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     if (strlen($name) < 2 || strlen($name) > 10) {
         $errors[] = "Name field length must be in the range of 2-10.";
+    }
+    if ($captchaResult["match"] == false) {
+        $errors = array_merge($errors, $captchaResult["errors"]);
     }
     if ($errors) {
         saveFormData();

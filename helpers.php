@@ -124,6 +124,7 @@ function randomString(
 
 #region ==================== IMAGE
 
+// https://en.wikipedia.org/wiki/CAPTCHA
 function stringImage($captchaText = "hello", $fontSize = 16): object {
     $imgPadX    = $fontSize / 3;
     $imgPadY    = $imgPadX / 3;

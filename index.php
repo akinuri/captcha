@@ -49,39 +49,43 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-slate-50 p-4">
+<body class="bg-slate-50">
     
-    <?php printNotifications(getNotifications()) ?>
-    
-    <form class="flex flex-col gap-2 w-fit" action="" method="post">
+    <div class="p-4 w-fit">
         
-        <div class="flex gap-2">
-            <span class="inline-flex items-center min-w-[80px]">Name</span>
-            <input
-                type="text"
-                class="px-2 py-1 border rounded bg-white w-full"
-                name="name"
-                value="<?= getOldFormValue("name") ?>"
-                />
-        </div>
+        <?php printNotifications(getNotifications(), "mb-4") ?>
         
-        <div class="flex gap-2">
-            <span class="inline-flex items-center w-[80px]">CAPTCHA</span>
-            <div class="flex gap-1">
-                <img src="<?= $captcha["image"] ?>">
+        <form class="flex flex-col gap-2 w-fit" action="" method="post">
+            
+            <div class="flex gap-2">
+                <span class="inline-flex items-center min-w-[80px]">Name</span>
                 <input
                     type="text"
-                    class="px-2 py-1 border rounded bg-white"
-                    name="captcha"
-                    >
+                    class="px-2 py-1 border rounded bg-white w-full"
+                    name="name"
+                    value="<?= getOldFormValue("name") ?>"
+                    />
             </div>
-        </div>
+            
+            <div class="flex gap-2">
+                <span class="inline-flex items-center w-[80px]">CAPTCHA</span>
+                <div class="flex gap-1">
+                    <img src="<?= $captcha["image"] ?>">
+                    <input
+                        type="text"
+                        class="px-2 py-1 border rounded bg-white"
+                        name="captcha"
+                        >
+                </div>
+            </div>
+            
+            <button
+                class="px-2 py-1 border rounded bg-slate-200 hover:bg-slate-300/70 active:bg-slate-300/90"
+                >Submit</button>
+            
+        </form>
         
-        <button
-            class="px-2 py-1 border rounded bg-slate-200 hover:bg-slate-300/70 active:bg-slate-300/90"
-            >Submit</button>
-        
-    </form>
+    </div>
     
 </body>
 

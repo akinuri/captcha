@@ -1,3 +1,8 @@
+<?php
+require "helpers.php";
+session_start();
+$captcha = setCaptcha();
+?>
 <!doctype html>
 <html>
 
@@ -24,7 +29,7 @@
         <div class="flex gap-2">
             <span class="inline-flex items-center w-[80px]">CAPTCHA</span>
             <div class="flex gap-1">
-                <img src="">
+                <img src="<?= $captcha["image"] ?>">
                 <input
                     type="text"
                     class="px-2 py-1 border rounded bg-white"

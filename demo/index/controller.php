@@ -14,13 +14,13 @@ deleteOldFlashData();
 trackFlashData();
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $captcha = setCaptcha();
+    // $captcha = buildCaptcha("foobar");
+    $captcha = buildCaptcha(5);
+    setCaptcha($captcha);
 }
 else if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     normalizeFormData();
-
-    $captchaResult = checkCaptcha();
 
     $errors = [];
 
@@ -32,6 +32,7 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors[] = "Name field length must be in the range of 2-10.";
     }
 
+    $captchaResult = checkCaptcha();
     if ($captchaResult["match"] == false) {
         $errors = array_merge($errors, $captchaResult["errors"]);
     }

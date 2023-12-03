@@ -8,13 +8,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-slate-50">
+<body class="bg-slate-50 h-screen flex justify-center items-center">
     
-    <div class="p-4 w-fit">
+    <div class="p-4 w-fit h-fit pb-[10%]">
         
         <?php printNotifications(getNotifications(), "mb-4") ?>
         
-        <form class="flex flex-col gap-2 w-fit" action="" method="post">
+        <form class="flex flex-col gap-4 w-fit" action="" method="post">
             
             <div class="flex gap-2">
                 <span class="inline-flex items-center min-w-[80px]">Name</span>

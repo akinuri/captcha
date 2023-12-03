@@ -29,7 +29,7 @@ function buildNotification($text)
 function printNotifications($notifications, $class = "")
 {
     if (!empty($notifications)) {
-        echo "<div class=\"flex flex-col gap-2 {$class}\">";
+        echo "<div class=\"flex flex-col gap-3 {$class}\">";
         foreach ($notifications as $text) {
             echo buildNotification($text);
         }

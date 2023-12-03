@@ -1,5 +1,12 @@
 <?php
-require "helpers.php";
+require "utils/debug.php";
+require "utils/url.php";
+require "utils/string.php";
+require "utils/flash-data.php";
+require "utils/notifications.php";
+require "utils/form-data.php";
+require "utils/image.php";
+require "utils/captcha.php";
 session_start();
 deleteOldFlashData();
 trackFlashData();
@@ -16,7 +23,6 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_POST[$key] = $value;
         }
     }
-    $pageURL = "http://localhost/captcha/";
     $captchaResult = checkCaptcha();
     $errors = [];
     $name = $_POST["name"] ?? null;
@@ -32,11 +38,11 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($errors) {
         saveFormData();
         addNotifications($errors);
-        redirect($pageURL);
+        redirect(baseURL());
     }
     // process form data
     addNotification("The form is submitted.");
-    redirect($pageURL);
+    redirect(baseURL());
 }
 ?>
 <!doctype html>

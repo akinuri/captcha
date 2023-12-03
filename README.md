@@ -5,14 +5,20 @@ Simple CAPTCHA  implementation in PHP.
 ## About
 This is an experiment.
 
-- [x] simple UI/form
+### Captcha
 - [x] captcha image generation
+  - [x] very basic obscurity (overdrawn 2 lines)
   - [ ] live refresh
-  - [ ] more image modifications: rotation, translation, noise, distortion, ...
+  - [ ] more obscurity modifications: rotation, translation, noise, distortion, ...
+  - [ ] letter width calculation for better placement
+- [x] captcha input confirmation
+
+### Demo
+- [x] simple UI/form
 - [x] functional/submittable form
-- [x] form validation, error notifications
+- [x] form validation & error notifications
 - [x] captcha check on submit
-- [ ] ...
+
 
 ## Screenshots
 

@@ -5,8 +5,6 @@ require __DIR__ . "/../utils/url.php";
 require __DIR__ . "/../utils/flash-data.php";
 require __DIR__ . "/../utils/notifications.php";
 require __DIR__ . "/../utils/form-data.php";
-require __DIR__ . "/../../src/string.php";
-require __DIR__ . "/../../src/image.php";
 require __DIR__ . "/../../src/captcha.php";
 session_start();
 deleteOldFlashData();

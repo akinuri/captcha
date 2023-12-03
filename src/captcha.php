@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/string.php";
+require_once __DIR__ . "/random.php";
 require_once __DIR__ . "/image.php";
 
 function setCaptcha()

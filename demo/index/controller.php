@@ -18,15 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 }
 else if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    foreach ($_POST as $key => $value) {
-        if (is_string($value)) {
-            $value = trim($value);
-            if ($value === "") {
-                $value = null;
-            }
-            $_POST[$key] = $value;
-        }
-    }
+    normalizeFormData();
 
     $captchaResult = checkCaptcha();
 

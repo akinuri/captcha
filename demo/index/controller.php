@@ -1,13 +1,13 @@
 <?php
 defined("PARENT") OR exit("Direct script access is not allowed.");
-require "utils/debug.php";
-require "utils/url.php";
-require "utils/string.php";
-require "utils/flash-data.php";
-require "utils/notifications.php";
-require "utils/form-data.php";
-require "utils/image.php";
-require "utils/captcha.php";
+require __DIR__ . "/../utils/debug.php";
+require __DIR__ . "/../utils/url.php";
+require __DIR__ . "/../utils/flash-data.php";
+require __DIR__ . "/../utils/notifications.php";
+require __DIR__ . "/../utils/form-data.php";
+require __DIR__ . "/../../src/string.php";
+require __DIR__ . "/../../src/image.php";
+require __DIR__ . "/../../src/captcha.php";
 session_start();
 deleteOldFlashData();
 trackFlashData();

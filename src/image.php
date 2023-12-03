@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . "/debug.php";
-
 // https://en.wikipedia.org/wiki/CAPTCHA
 function stringImage($captchaText = "hello", $fontSize = 16): object
 {

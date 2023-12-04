@@ -3,14 +3,21 @@
 require_once __DIR__ . "/random.php";
 require_once __DIR__ . "/image.php";
 
-function buildCaptcha(string|int $string)
-{
+function buildCaptcha(
+    string|int $string,
+    int $fontSize = 16,
+    int $obscurityLines = 2,
+) {
     if (is_int($string)) {
         $string = randomString($string);
     }
+    $image = stringImage($string, $fontSize, 5, 5);
+    for ($i = 0; $i < $obscurityLines; $i++) {
+        drawLine($image);
+    }
     $captcha = [
         "string" => $string,
-        "image"  => imageAsBase64(stringImage($string)),
+        "image"  => imageAsBase64($image),
     ];
     return $captcha;
 }

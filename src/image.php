@@ -22,28 +22,36 @@ function imagettfbbox2(
 }
 
 // https://en.wikipedia.org/wiki/CAPTCHA
-function stringImage($captchaText = "hello", $fontSize = 16): object
+function stringImage(
+    $string = "hello",
+    $fontSize = 16,
+    $imgPadX = 0,
+    $imgPadY = 0,
+): object
 {
-    $imgPadX    = $fontSize / 3;
-    $imgPadY    = $imgPadX / 3;
-    $lineHeight = 1.7;
-    $maxCharWidth = $fontSize * 1.1;
-    $imgWidth   = strlen($captchaText) * $maxCharWidth + $imgPadX * 2;
-    $imgHeight  = $fontSize * $lineHeight + $imgPadY * 2;
-    $image      = imagecreatetruecolor(round($imgWidth), round($imgHeight));
+    $textBox = imagettfbbox2($fontSize, 0, __DIR__ . "/arial.ttf", $string);
+    $imageMaxStringWidth = $fontSize * (strlen($string) * 0.8);
+    $centerOffsetX = ($imageMaxStringWidth - $textBox["width"]) / 2;
+    $centerOffsetX = round($centerOffsetX);
+    $centerOffsetY = ($fontSize - $textBox["height"])  / 2;
+    $centerOffsetY = round($centerOffsetY);
+    $imageWidth  = $imageMaxStringWidth + $imgPadX * 2;
+    $imageHeight = $fontSize + $imgPadY * 2;
+    $imageWidth  = round($imageWidth);
+    $imageHeight = round($imageHeight);
+    $image      = imagecreatetruecolor($imageWidth, $imageHeight);
     $bgColor    = imagecolorallocate($image, 255, 255, 255);
     $textColor  = imagecolorallocate($image, 0, 0, 0);
-    $textY      = $imgPadY + $fontSize + (($lineHeight - 1) * $fontSize / 2);
-    imagefilledrectangle($image, 0, 0, round($imgWidth), round($imgHeight), $bgColor);
+    imagefilledrectangle($image, 0, 0, $imageWidth, $imageHeight, $bgColor);
     imagettftext(
         $image,
         $fontSize,
         0,
-        round($imgPadX),
-        round($textY),
+        $imgPadX + $centerOffsetX,
+        $imgPadY + $centerOffsetY + $textBox["height"] - $textBox["lower-left"]["y"],
         $textColor,
         __DIR__ . "/arial.ttf",
-        $captchaText,
+        $string,
     );
     return $image;
 }

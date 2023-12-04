@@ -45,13 +45,13 @@ function stringImage($captchaText = "hello", $fontSize = 16): object
         __DIR__ . "/arial.ttf",
         $captchaText,
     );
-    drawLine($image, $imgWidth, $imgHeight);
-    drawLine($image, $imgWidth, $imgHeight);
     return $image;
 }
 
-function drawLine($image, $imgWidth, $imgHeight)
+function drawLine($image)
 {
+    $imgWidth  = imagesx($image);
+    $imgHeight = imagesy($image);
     $lineStartX = 0;
     $lineStartY = rand(0, round($imgHeight));
     $lineEndX   = $imgWidth;

@@ -1,0 +1,25 @@
+{
+    "name": "akinuri/captcha",
+    "description": "Generate & check CAPTCHA images.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Noreh AD",
+            "homepage": "https://akinuri.com",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/akinuri/captcha"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Akinuri\\Captcha\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}

@@ -28,7 +28,7 @@
             
             <div class="flex gap-2">
                 <span class="inline-flex items-center w-[80px]">CAPTCHA</span>
-                <div class="flex gap-1">
+                <div class="flex gap-1 items-center">
                     <img src="<?= $captcha["image"] ?>">
                     <input
                         type="text"

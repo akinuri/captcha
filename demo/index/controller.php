@@ -15,7 +15,7 @@ trackFlashData();
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     // $captcha = buildCaptcha("foobar");
-    $captcha = buildCaptcha(5);
+    $captcha = buildCaptcha(5, 20);
     setCaptcha($captcha);
 }
 else if ($_SERVER["REQUEST_METHOD"] == "POST") {

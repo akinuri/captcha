@@ -1,5 +1,26 @@
 <?php
 
+function imagettfbbox2(
+    float $size,
+    float $angle,
+    string $font_filename,
+    string $string,
+    array $options = [],
+): array|false {
+    $box = imagettfbbox($size, $angle, $font_filename, $string, $options);
+    if (is_array($box)) {
+        $box = [
+            "upper-left"  => ["x" => $box[6], "y" => $box[7]],
+            "upper-right" => ["x" => $box[4], "y" => $box[5]],
+            "lower-right" => ["x" => $box[2], "y" => $box[3]],
+            "lower-left"  => ["x" => $box[0], "y" => $box[1]],
+        ];
+        $box["width"]  = $box["upper-right"]["x"] - $box["upper-left"]["x"];
+        $box["height"] = abs($box["upper-right"]["y"] - $box["lower-left"]["y"]);
+    }
+    return $box;
+}
+
 // https://en.wikipedia.org/wiki/CAPTCHA
 function stringImage($captchaText = "hello", $fontSize = 16): object
 {

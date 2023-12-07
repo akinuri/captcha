@@ -1,26 +1,5 @@
 <?php
 
-function imagettfbbox2(
-    float $size,
-    float $angle,
-    string $font_filename,
-    string $string,
-    array $options = [],
-): array|false {
-    $box = imagettfbbox($size, $angle, $font_filename, $string, $options);
-    if (is_array($box)) {
-        $box = [
-            "upper-left"  => ["x" => $box[6], "y" => $box[7]],
-            "upper-right" => ["x" => $box[4], "y" => $box[5]],
-            "lower-right" => ["x" => $box[2], "y" => $box[3]],
-            "lower-left"  => ["x" => $box[0], "y" => $box[1]],
-        ];
-        $box["width"]  = $box["upper-right"]["x"] - $box["upper-left"]["x"];
-        $box["height"] = abs($box["upper-right"]["y"] - $box["lower-left"]["y"]);
-    }
-    return $box;
-}
-
 // https://en.wikipedia.org/wiki/CAPTCHA
 function imageFromString(
     $string = "hello",
@@ -55,6 +34,27 @@ function imageFromString(
     return $image;
 }
 
+function imagettfbbox2(
+    float $size,
+    float $angle,
+    string $font_filename,
+    string $string,
+    array $options = [],
+): array|false {
+    $box = imagettfbbox($size, $angle, $font_filename, $string, $options);
+    if (is_array($box)) {
+        $box = [
+            "upper-left"  => ["x" => $box[6], "y" => $box[7]],
+            "upper-right" => ["x" => $box[4], "y" => $box[5]],
+            "lower-right" => ["x" => $box[2], "y" => $box[3]],
+            "lower-left"  => ["x" => $box[0], "y" => $box[1]],
+        ];
+        $box["width"]  = $box["upper-right"]["x"] - $box["upper-left"]["x"];
+        $box["height"] = abs($box["upper-right"]["y"] - $box["lower-left"]["y"]);
+    }
+    return $box;
+}
+
 function drawCrossLine($image)
 {
     $crossLine = calcCrossLinePos(imagesx($image), imagesy($image));
@@ -82,14 +82,6 @@ function calcCrossLinePos(int $areaWidth, int $areaHeight): array
     return compact("from", "to");
 }
 
-function getImageResourceData(object $image): string
-{
-    ob_start();
-    imagepng($image);
-    $data = ob_get_clean();
-    return $data;
-}
-
 function imageAsBase64($image): string
 {
     if (is_object($image)) {
@@ -97,6 +89,14 @@ function imageAsBase64($image): string
     }
     $base64 = "data:image/png;base64," . base64_encode($image);
     return $base64;
+}
+
+function getImageResourceData(object $image): string
+{
+    ob_start();
+    imagepng($image);
+    $data = ob_get_clean();
+    return $data;
 }
 
 function showImage($image)

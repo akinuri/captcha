@@ -29,6 +29,7 @@ function setCaptcha(array $captcha)
 
 function checkCaptcha()
 {
+    global $CAPTCHA_MESSAGES;
     $sessionCaptcha = $_SESSION["captcha"] ?? null;
     $formCaptcha    = $_POST["captcha"] ?? null;
     $result = [
@@ -39,11 +40,16 @@ function checkCaptcha()
     ];
     if (!$formCaptcha) {
         $result["match"] = false;
-        $result["errors"][] = "CAPTCHA is missing.";
+        $result["errors"][] = $CAPTCHA_MESSAGES["MISSING"];
     }
     if ($formCaptcha && $formCaptcha != $sessionCaptcha) {
         $result["match"] = false;
-        $result["errors"][] = "CAPTCHA is wrong.";
+        $result["errors"][] = $CAPTCHA_MESSAGES["WRONG"];
     }
     return $result;
 }
+
+$CAPTCHA_MESSAGES = [
+    "WRONG"   => "CAPTCHA is wrong.",
+    "MISSING" => "CAPTCHA is missing.",
+];

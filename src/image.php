@@ -22,23 +22,22 @@ function imagettfbbox2(
 }
 
 // https://en.wikipedia.org/wiki/CAPTCHA
-function stringImage(
+function imageFromString(
     $string = "hello",
     $fontSize = 16,
     $imgPadX = 0,
     $imgPadY = 0,
-): object
-{
+): object {
     $textBox = imagettfbbox2($fontSize, 0, __DIR__ . "/arial.ttf", $string);
     $imageMaxStringWidth = $fontSize * (strlen($string) * 0.8);
     $centerOffsetX = ($imageMaxStringWidth - $textBox["width"]) / 2;
-    $centerOffsetX = round($centerOffsetX);
     $centerOffsetY = ($fontSize - $textBox["height"])  / 2;
+    $imageWidth    = $imageMaxStringWidth + $imgPadX * 2;
+    $imageHeight   = $fontSize + $imgPadY * 2;
     $centerOffsetY = round($centerOffsetY);
-    $imageWidth  = $imageMaxStringWidth + $imgPadX * 2;
-    $imageHeight = $fontSize + $imgPadY * 2;
-    $imageWidth  = round($imageWidth);
-    $imageHeight = round($imageHeight);
+    $centerOffsetX = round($centerOffsetX);
+    $imageWidth    = round($imageWidth);
+    $imageHeight   = round($imageHeight);
     $image      = imagecreatetruecolor($imageWidth, $imageHeight);
     $bgColor    = imagecolorallocate($image, 255, 255, 255);
     $textColor  = imagecolorallocate($image, 0, 0, 0);

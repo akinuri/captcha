@@ -11,7 +11,7 @@ function buildCaptcha(
     if (is_int($string)) {
         $string = randomString($string);
     }
-    $image = stringImage($string, $fontSize, 5, 5);
+    $image = imageFromString($string, $fontSize, 5, 5);
     for ($i = 0; $i < $obscurityLines; $i++) {
         drawCrossLine($image);
     }

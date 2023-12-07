@@ -13,7 +13,7 @@ function buildCaptcha(
     }
     $image = stringImage($string, $fontSize, 5, 5);
     for ($i = 0; $i < $obscurityLines; $i++) {
-        drawLine($image);
+        drawCrossLine($image);
     }
     $captcha = [
         "string" => $string,

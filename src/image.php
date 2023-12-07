@@ -56,16 +56,31 @@ function stringImage(
     return $image;
 }
 
-function drawLine($image)
+function drawCrossLine($image)
 {
-    $imgWidth  = imagesx($image);
-    $imgHeight = imagesy($image);
-    $lineStartX = 0;
-    $lineStartY = rand(0, round($imgHeight));
-    $lineEndX   = $imgWidth;
-    $lineEndY   = rand(0, round($imgHeight));
-    $lineColor  = imagecolorallocate($image, 0, 0, 0);
-    imageline($image, round($lineStartX), round($lineStartY), round($lineEndX), round($lineEndY), $lineColor);
+    $crossLine = calcCrossLinePos(imagesx($image), imagesy($image));
+    $lineColor = imagecolorallocate($image, 0, 0, 0);
+    imageline(
+        $image,
+        round($crossLine["from"]["x"]),
+        round($crossLine["from"]["y"]),
+        round($crossLine["to"]["x"]),
+        round($crossLine["to"]["y"]),
+        $lineColor,
+    );
+}
+
+function calcCrossLinePos(int $areaWidth, int $areaHeight): array
+{
+    $from = [
+        "x" => 0,
+        "y" => rand(0, $areaHeight),
+    ];
+    $to = [
+        "x" => $areaWidth,
+        "y" => rand(0, $areaHeight),
+    ];
+    return compact("from", "to");
 }
 
 function getImageResourceData(object $image): string

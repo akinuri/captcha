@@ -4,7 +4,7 @@ namespace Akinuri\Captcha;
 
 enum CaptchaCheckMessages: string
 {
-    case SessionValueMissing = "Captcha is not set.";
-    case FormValueEmpty = "Captcha is empty or missing.";
-    case FormValueWrong = "Captcha is wrong.";
+    case SessionValueMissing = "CAPTCHA is not set.";
+    case FormValueEmpty = "CAPTCHA is empty or missing.";
+    case FormValueWrong = "CAPTCHA is wrong.";
 }

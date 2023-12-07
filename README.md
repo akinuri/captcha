@@ -10,7 +10,6 @@ This is an experiment.
   - [x] very basic obscurity (overdrawn 2 lines)
   - [ ] live refresh
   - [ ] more obscurity modifications: rotation, translation, noise, distortion, ...
-  - [ ] letter width calculation for better placement
 - [x] captcha input confirmation
 
 ### Demo

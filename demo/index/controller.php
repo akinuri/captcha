@@ -14,7 +14,6 @@ deleteOldFlashData();
 trackFlashData();
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    // $captcha = buildCaptcha("foobar");
     $captcha = buildCaptcha(5, 20);
     setCaptcha($captcha);
 }
@@ -28,8 +27,8 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($name)) {
         $errors[] = "Name field must not be empty.";
     }
-    if (strlen($name) < 2 || strlen($name) > 10) {
-        $errors[] = "Name field length must be in the range of 2-10.";
+    if (!empty($name) && (strlen($name) < 2 || strlen($name) > 10)) {
+        $errors[] = "Name value length must be in the range of 2-10.";
     }
 
     $captchaResult = checkCaptcha();

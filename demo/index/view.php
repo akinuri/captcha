@@ -29,7 +29,7 @@
             <div class="flex gap-2">
                 <span class="inline-flex items-center w-[80px]">CAPTCHA</span>
                 <div class="flex gap-1 items-center">
-                    <img src="<?= $captcha["image"] ?>">
+                    <img src="<?= $captcha->getImage() ?>">
                     <input
                         type="text"
                         class="px-2 py-1 border rounded bg-white"

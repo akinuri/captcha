@@ -1,4 +1,10 @@
 <?php
+
+require __DIR__ . "/../../vendor/autoload.php";
+
+use Akinuri\Captcha\Captcha;
+use Akinuri\Captcha\CaptchaGuard;
+
 defined("PARENT") or exit("Direct script access is not allowed.");
 
 require __DIR__ . "/../utils/debug.php";
@@ -6,7 +12,6 @@ require __DIR__ . "/../utils/url.php";
 require __DIR__ . "/../utils/flash-data.php";
 require __DIR__ . "/../utils/notifications.php";
 require __DIR__ . "/../utils/form-data.php";
-require __DIR__ . "/../../src/captcha.php";
 
 session_start();
 
@@ -14,8 +19,8 @@ deleteOldFlashData();
 trackFlashData();
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $captcha = buildCaptcha(5, 20);
-    setCaptcha($captcha);
+    $captcha = new Captcha(5, 20);
+    CaptchaGuard::remember($captcha);
 }
 else if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -31,9 +36,9 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors[] = "Name value length must be in the range of 2-10.";
     }
 
-    $captchaResult = checkCaptcha();
-    if ($captchaResult["match"] == false) {
-        $errors = array_merge($errors, $captchaResult["errors"]);
+    $captchaCheck = CaptchaGuard::check();
+    if ($captchaCheck->match == false) {
+        $errors = array_merge($errors, $captchaCheck->messages);
     }
 
     if ($errors) {
